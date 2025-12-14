@@ -49,9 +49,25 @@ export function Citizens() {
         signer
       );
 
+      // Debug: Verify the contract is correct by checking owner
+      try {
+        const owner = await citizenIdContract.owner();
+        console.log("SoulboundCitizenID Owner:", owner);
+        console.log("SoulboundCitizenID Address:", SOULBOUND_CITIZEN_ID_ADDRESS);
+      } catch (err: any) {
+        console.error("Failed to call owner() on citizenIdContract:", err.message);
+      }
+
       // Get all citizens by iterating through token IDs
-      // This is more reliable than event queries
-      const nextId = await citizenIdContract.nextId();
+      let nextId;
+      try {
+        nextId = await citizenIdContract.nextId();
+        console.log("nextId from contract:", nextId);
+      } catch (err: any) {
+        console.error("Failed to call nextId():", err);
+        throw new Error(`nextId() call failed: ${err.message}`);
+      }
+
       const citizenAddresses = new Set<string>();
 
       // Iterate through all token IDs (starting from 1, since nextId is pre-incremented)

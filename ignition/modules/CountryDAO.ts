@@ -21,8 +21,5 @@ export default buildModule("NewCountryDAOModule", (m) => {
   // Deploy Airdropper with token and citizen ID
   const airdropper = m.contract("Airdropper", [nationToken, soulboundCitizenID]);
 
-  // Deploy PublicWelfare with token and citizen ID
-  const publicWelfare = m.contract("PublicWelfare", [nationToken, soulboundCitizenID]);
-
-  return { soulboundCitizenID, nationToken, election, airdropper, publicWelfare };
+  return { soulboundCitizenID, nationToken, election, airdropper };
 });
