@@ -1,0 +1,44 @@
+.copyable-address {
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  transition: all 0.2s ease;
+  display: inline-block;
+}
+
+.copyable-address:hover {
+  opacity: 0.8;
+  transform: translateY(-1px);
+}
+
+.copyable-address:active {
+  transform: translateY(0);
+}
+
+/* Preserve existing styles when used with className props */
+.copyable-address.list-item-address,
+.copyable-address.info-value,
+.copyable-address.candidate-address,
+.copyable-address.address {
+  /* Inherit parent styles - these are already styled in Pages.css and App.css */
+}
+
+.copy-feedback {
+  margin-left: 0.5rem;
+  color: #10b981;
+  font-weight: 600;
+  font-size: 0.85em;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
