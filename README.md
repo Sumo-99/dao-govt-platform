@@ -1,6 +1,6 @@
 # Country DAO - Decentralized Nation Governance Platform
 
-A comprehensive full-stack blockchain application that implements a complete nation governance system using smart contracts and a modern React frontend. This project features soulbound citizenship NFTs, a governance token (NAT), democratic elections for government positions, and token airdrops for citizens.
+A comprehensive full-stack blockchain application that implements a complete nation governance system using smart contracts and a modern React frontend. This project features soulbound citizenship NFTs, a governance token (NAT), democratic elections for government positions, token airdrops for citizens, and a public welfare proposal system.
 
 ## 🎥 Video Demo
 
@@ -29,12 +29,13 @@ A comprehensive full-stack blockchain application that implements a complete nat
 
 Country DAO is a decentralized nation governance platform that demonstrates how blockchain technology can be used to create transparent and tamper-proof governance systems. The project consists of:
 
-- **4 Smart Contracts**: Implementing citizenship, token economy, elections, and airdrops
+- **5 Smart Contracts**: Implementing citizenship, token economy, elections, airdrops, and public welfare
   - **SoulboundCitizenID.sol**: Non-transferable NFT-based citizenship system
   - **NationToken.sol**: ERC20 governance token (NAT) with voting delegation
   - **Election.sol**: Flexible position-based election system
   - **Airdropper.sol**: Token distribution system for citizens
-- **React Frontend with Routing**: Multi-page web interface with dedicated sections for citizens, officials, admin controls, and airdrops
+  - **PublicWelfare.sol**: Proposal voting system for public welfare initiatives
+- **React Frontend with Routing**: Multi-page web interface with dedicated sections for citizens, officials, admin controls, airdrops, and welfare proposals
 - **Comprehensive Test Suite**: Multiple test files covering all contract functionality
 
 ## UI
@@ -44,6 +45,12 @@ Country DAO is a decentralized nation governance platform that demonstrates how 
 ![Home Page](img/Screenshot%202025-11-03%20at%204.31.01%20PM.png)
 
 _Citizens page showing all minted CitizenID NFTs with their token IDs and owner addresses_
+
+### Voting for Public Welfare Projects
+
+![Citizens Page](img/Screenshot%202025-11-03%20at%204.31.25%20PM.png)
+
+_Public Welfare Board interface where citizens can vote for or against community welfare proposals_
 
 ### Elections & Voting
 
@@ -95,6 +102,7 @@ This dual requirement ensures only committed community members can participate i
 - **Token-Based Voting**: Each vote costs 1 NAT token (burned), preventing vote spam and ensuring stake in the system
 - **Flexible Election System**: Create government positions with custom names (President, Vice President, Minister, etc.)
 - **Token Airdrops**: Citizenship-gated token distribution system with whole-token convenience functions
+- **Public Welfare Proposals**: Create, vote on, and track public welfare initiatives
 - **Multi-Page Frontend**: Dedicated pages for different governance functions with React Router navigation
 
 ### Smart Contract Features
@@ -132,6 +140,15 @@ This dual requirement ensures only committed community members can participate i
 - Human-friendly amounts (specify whole tokens)
 - Batch airdrops to multiple recipients
 - Raw variants for precise control
+
+#### PublicWelfare
+
+- Create proposals with title and details
+- Open/close proposals for voting
+- For/Against voting system
+- Citizenship and token-gated (costs 1 NAT per vote)
+- Real-time vote tallying
+- Track proposal results and leading side
 
 ## Technology Stack
 
@@ -210,16 +227,17 @@ npx hardhat ignition deploy ignition/modules/CountryDAO.ts --network localhost
 
 This will:
 
-- Compile all smart contracts (SoulboundCitizenID, NationToken, Election, Airdropper)
+- Compile all smart contracts (SoulboundCitizenID, NationToken, Election, Airdropper, PublicWelfare)
 - Deploy them to your local Hardhat network in the correct order
 - Display the deployed contract addresses
 
-**Important**: Copy all four deployed contract addresses from the output:
+**Important**: Copy all five deployed contract addresses from the output:
 
 - SoulboundCitizenID address
 - NationToken address
 - Election address
 - Airdropper address
+- PublicWelfare address
 
 ### Step 3: Configure the Frontend
 
@@ -236,6 +254,7 @@ This will:
    export const NATION_TOKEN_ADDRESS = "0xYourNationTokenAddress";
    export const ELECTION_ADDRESS = "0xYourElectionAddress";
    export const AIRDROPPER_ADDRESS = "0xYourAirdropperAddress";
+   export const PUBLIC_WELFARE_ADDRESS = "0xYourPublicWelfareAddress";
    ```
 
 ### Step 4: Start the Frontend
@@ -278,7 +297,8 @@ country_dao/
 │   ├── SoulboundCitizenID.sol     # Citizenship NFT contract
 │   ├── NationToken.sol            # Governance token (NAT)
 │   ├── Election.sol               # Election system
-│   └── Airdropper.sol             # Token distribution
+│   ├── Airdropper.sol             # Token distribution
+│   └── PublicWelfareBoard.sol     # Welfare proposals
 ├── frontend/                       # React application
 │   ├── src/
 │   │   ├── components/
@@ -292,6 +312,7 @@ country_dao/
 │   │   │   ├── Officials.tsx      # Elected officials view
 │   │   │   ├── Admin.tsx          # Admin controls
 │   │   │   ├── Airdropper.tsx     # Token distribution UI
+│   │   │   ├── PublicWelfareBoard.tsx # Welfare proposals UI
 │   │   │   └── Pages.css          # Page styles
 │   │   ├── App.tsx                # Main app with routing
 │   │   ├── App.css                # App styles
@@ -301,7 +322,7 @@ country_dao/
 │   └── vite.config.ts
 ├── ignition/                       # Deployment modules
 │   └── modules/
-│       └── CountryDAO.ts          # Deployment script (deploys all 4 contracts)
+│       └── CountryDAO.ts          # Deployment script (deploys all 5 contracts)
 ├── test/                           # Test files
 │   ├── citizenship.ts             # SoulboundCitizenID tests
 │   ├── election.ts                # Election tests
@@ -480,6 +501,46 @@ Token distribution system with citizenship verification and human-friendly amoun
 
 ---
 
+### Contract: PublicWelfare.sol
+
+Located at: `contracts/PublicWelfareBoard.sol`
+
+Public welfare proposal voting system with for/against voting.
+
+#### Key Functions
+
+**Owner Functions:**
+
+- `createProposal(string title, string details)`: Create a new proposal
+- `openProposal(uint256 proposalId)`: Open a proposal for voting
+- `closeProposal(uint256 proposalId)`: Close a proposal
+- `transferOwnership(address newOwner)`: Transfer contract ownership
+
+**Citizen Functions:**
+
+- `vote(uint256 proposalId, bool support)`: Vote for or against a proposal (costs 1 NAT token)
+
+**View Functions:**
+
+- `getTally(uint256 proposalId)`: Get for/against vote counts
+- `currentResult(uint256 proposalId)`: Get comprehensive proposal results
+- `proposals(uint256 proposalId)`: Get proposal details
+- `hasVoted(uint256 proposalId, address voter)`: Check if an address has voted
+
+#### Voting Requirements
+
+- Must have at least 1 CitizenID NFT
+- Must have at least 1 NAT token (1 \* 10^18 base units)
+- 1 NAT token is **burned** when voting
+- Can only vote once per proposal
+
+#### Events
+
+- `ProposalCreated(uint256 indexed proposalId, string title)`
+- `ProposalOpened(uint256 indexed proposalId)`
+- `ProposalClosed(uint256 indexed proposalId)`
+- `Voted(uint256 indexed proposalId, address indexed voter, bool support)`
+
 ## Frontend Application
 
 ### Architecture
@@ -529,6 +590,13 @@ The main app component that sets up routing:
 - Mint-and-airdrop functionality
 - View airdrop history
 
+**PublicWelfareBoard** (`frontend/src/pages/PublicWelfareBoard.tsx`)
+
+- Create welfare proposals
+- Open/close proposals for voting
+- Vote for or against proposals (costs 1 NAT token)
+- View proposal results and vote tallies
+
 ### Components
 
 **Navbar** (`frontend/src/components/Navbar.tsx`)
@@ -550,7 +618,7 @@ The main app component that sets up routing:
 
 Contains:
 
-- All 4 contract addresses (update after deployment)
+- All 5 contract addresses (update after deployment)
 - Complete ABIs for all contracts
 - Position constants (PRESIDENT, VICE_PRESIDENT, MINISTER)
 - Position name mappings
@@ -669,6 +737,15 @@ npm run deploy
 5. Confirm the transaction in MetaMask
 6. Your vote is recorded and the token is burned
 
+#### Participating in Public Welfare Proposals
+
+1. Navigate to the **PublicWelfareBoard** page
+2. View active welfare proposals
+3. Read the proposal details
+4. Vote "For" or "Against" (costs 1 NAT token)
+5. Confirm the transaction in MetaMask
+6. View real-time vote tallies
+
 ### As the Contract Owner (Admin)
 
 #### Managing Elections
@@ -711,6 +788,27 @@ Navigate to the **Airdropper** page to:
 3. **Mint and Airdrop**
    - Use "Mint and Airdrop" functions to create new tokens
    - Requires Airdropper contract to have MINTER_ROLE
+
+#### Managing Welfare Proposals
+
+Navigate to the **PublicWelfareBoard** page to:
+
+1. **Create a Proposal**
+
+   - Enter proposal title
+   - Enter detailed description
+   - Click "Create Proposal"
+
+2. **Open Proposal for Voting**
+
+   - Select a proposal
+   - Click "Open Proposal"
+   - Citizens can now vote
+
+3. **Close Proposal**
+   - Select an active proposal
+   - Click "Close Proposal"
+   - View final results
 
 #### Managing Token Roles
 

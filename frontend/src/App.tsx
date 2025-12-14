@@ -5,6 +5,7 @@ import { Citizens } from "./pages/Citizens";
 import { Officials } from "./pages/Officials";
 import { Admin } from "./pages/Admin";
 import { Airdropper } from "./pages/Airdropper";
+import { PublicWelfareBoard } from "./pages/PublicWelfareBoard";
 import "./App.css";
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
           <Route path="/officials" element={<Officials />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/airdropper" element={<Airdropper />} />
+          <Route path="/welfare" element={<PublicWelfareBoard />} />
         </Routes>
       </div>
     </Router>

@@ -141,6 +141,23 @@ export function Navbar() {
               </span>
             )}
           </li>
+          <li>
+            {isCitizen ? (
+              <Link
+                to="/welfare"
+                className={location.pathname === "/welfare" ? "active" : ""}
+              >
+                Public Welfare
+              </Link>
+            ) : (
+              <span
+                className="navbar-link-disabled"
+                title="You must be a citizen to view this page"
+              >
+                Public Welfare 🔒
+              </span>
+            )}
+          </li>
         </ul>
       </div>
     </nav>

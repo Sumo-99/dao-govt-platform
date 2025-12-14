@@ -137,10 +137,9 @@ export function Home() {
     try {
       setLoading(true);
 
-      // Normalize account address to lowercase for consistency throughout
-      const normalizedAccount = account.toLowerCase();
-
       // Check citizenship status
+      // Normalize account address to lowercase for consistency
+      const normalizedAccount = account.toLowerCase();
       const balance = await citizenIdContract.balanceOf(normalizedAccount);
       const hasCitizenship = balance > 0n || Number(balance) > 0;
       console.log("Citizenship check:", {
@@ -151,8 +150,8 @@ export function Home() {
       });
       setIsCitizen(hasCitizenship);
 
-      // Check token balance (use normalized account)
-      const tokenBal = await nationTokenContract.balanceOf(normalizedAccount);
+      // Check token balance
+      const tokenBal = await nationTokenContract.balanceOf(account);
       const decimalsValue = await nationTokenContract.decimals();
       // Ensure decimals is a number (ethers v6 may return bigint for uint8 in some cases)
       const decimals = Number(decimalsValue);
@@ -160,7 +159,7 @@ export function Home() {
 
       // Check if user is owner
       const owner = await electionContract.owner();
-      setIsOwner(owner.toLowerCase() === normalizedAccount);
+      setIsOwner(owner.toLowerCase() === account.toLowerCase());
 
       // Load all positions (check IDs 0-50 to support any position ID)
       const positionsData: { [key: number]: Position } = {};
@@ -197,7 +196,7 @@ export function Home() {
             candidatesData[positionId] = candidates;
 
             // Check if user has voted
-            const voted = await electionContract.hasVoted(positionId, normalizedAccount);
+            const voted = await electionContract.hasVoted(positionId, account);
             votedData[positionId] = voted;
 
             // Get winner if position is closed
