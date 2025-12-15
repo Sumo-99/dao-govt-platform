@@ -231,97 +231,129 @@ export function Airdropper() {
 
   if (!account) {
     return (
-      <div style={{ padding: "20px" }}>
-        <div className="container">
-          <div className="card">
-            <h1>Airdropper</h1>
-            <p className="subtitle">
-              Connect your wallet to manage token airdrops
+      <div className="page-container">
+        <div className="page-header">
+          <h1>Airdropper Treasury</h1>
+          <p className="subtitle">
+            Citizenship-gated token distribution for CountryDAO
+          </p>
+        </div>
+        <section className="card citizens-hero-card">
+          <div className="citizens-hero-content">
+            <p className="eyebrow">Treasury access</p>
+            <h2>Connect your wallet to manage airdrops</h2>
+            <p className="citizens-hero-subtitle">
+              Only the Airdropper contract owner can perform airdrops. Token
+              transfers are restricted to citizens holding a CitizenID NFT.
             </p>
+          </div>
+          <div className="citizens-hero-status">
             {error && <div className="error">{error}</div>}
-            <button onClick={connectWallet} style={{ marginTop: "20px" }}>
+            <button onClick={connectWallet} className="home-primary-cta">
               Connect MetaMask
             </button>
           </div>
-        </div>
+        </section>
       </div>
     );
   }
 
   return (
-    <div style={{ padding: "20px" }}>
-      <div className="container">
-        <header>
-          <h1>Airdropper</h1>
-          <p className="subtitle">
-            Token Airdrop Management • Citizenship-Gated Distribution
+    <div className="page-container">
+      <div className="page-header">
+        <h1>Airdropper Treasury</h1>
+        <p className="subtitle">
+          Token airdrop management • Citizenship-gated distribution
+        </p>
+      </div>
+
+      <section className="card citizens-hero-card">
+        <div className="citizens-hero-content">
+          <p className="eyebrow">Treasury status</p>
+          <h2>Manage NAT airdrops to citizens</h2>
+          <p className="citizens-hero-subtitle">
+            Distribute existing NAT from the Airdropper balance, or mint and
+            airdrop in a single transaction when the contract holds MINTER_ROLE.
           </p>
-
-          <div className="wallet-section">
-            <div className="wallet-info">
-              {account && (
-                <CopyableAddress
-                  address={account}
-                  className="address"
-                  showFull={true}
-                />
-              )}
-              {isOwner && <span className="status-badge active">Admin</span>}
-              <span className="status-badge">
-                Contract Balance: {contractBalance} NAT
-              </span>
-            </div>
+        </div>
+        <div className="citizens-hero-status">
+          <div className="wallet-info" style={{ marginBottom: "0.75rem" }}>
+            {account && (
+              <CopyableAddress
+                address={account}
+                className="address"
+                showFull={true}
+              />
+            )}
           </div>
-        </header>
-
-        {error && <div className="error">{error}</div>}
-        {success && <div className="success">{success}</div>}
-
-        {!isOwner && (
-          <div className="card">
-            <div
-              className="info"
-              style={{
-                backgroundColor: "#fff3cd",
-                borderColor: "#ffc107",
-                color: "#856404",
-              }}
-            >
-              Only the contract owner can perform airdrops
-            </div>
+          <div className="wallet-info" style={{ gap: "0.5rem" }}>
+            {isOwner && <span className="status-badge active">Owner</span>}
+            <span className="status-badge">
+              Contract Balance: {contractBalance} NAT
+            </span>
           </div>
-        )}
+        </div>
+      </section>
 
-        {isOwner && (
-          <>
-            <div className="card">
-              <h2>Contract Information</h2>
+      {(error || success) && (
+        <div className="admin-alert-row">
+          {error && <div className="error">{error}</div>}
+          {success && <div className="success">{success}</div>}
+        </div>
+      )}
+
+      {!isOwner && (
+        <div className="card admin-card">
+          <div className="info info-warning">
+            Only the Airdropper contract owner can perform airdrops.
+          </div>
+        </div>
+      )}
+
+      {isOwner && (
+        <>
+          <section className="citizens-layout">
+            <section className="card citizens-list-card">
+              <div className="admin-section-header">
+                <div>
+                  <h2>Contract information</h2>
+                  <p>Addresses involved in this airdrop configuration.</p>
+                </div>
+              </div>
               <div style={{ marginBottom: "15px" }}>
-                <strong>Airdropper Contract:</strong>
+                <strong>Airdropper contract:</strong>
                 <CopyableAddress address={AIRDROPPER_ADDRESS} showFull={true} />
               </div>
               <div style={{ marginBottom: "15px" }}>
-                <strong>Token Contract:</strong>
+                <strong>Token contract:</strong>
                 <CopyableAddress
                   address={NATION_TOKEN_ADDRESS}
                   showFull={true}
                 />
               </div>
               <div>
-                <strong>Contract Token Balance:</strong> {contractBalance} NAT
+                <strong>Contract token balance:</strong> {contractBalance} NAT
               </div>
               <div className="info" style={{ marginTop: "15px" }}>
-                Note: For non-mint airdrops, ensure the Airdropper contract has
-                sufficient token balance. For mint airdrops, the Airdropper must
-                have the MINTER_ROLE.
+                For non-mint airdrops, ensure the Airdropper holds enough NAT.
+                For mint airdrops, grant MINTER_ROLE to the Airdropper via the
+                Admin page.
               </div>
-            </div>
+            </section>
 
-            <div className="card">
-              <h2>Single Airdrop</h2>
+            <section className="card citizens-list-card">
+              <div className="admin-section-header">
+                <div>
+                  <h2>Single airdrop</h2>
+                  <p>
+                    Send NAT to a single citizen address. Amounts are specified
+                    in whole tokens.
+                  </p>
+                </div>
+              </div>
               <form onSubmit={handleSingleAirdrop}>
                 <div className="form-group">
-                  <label>Recipient Address</label>
+                  <label>Recipient address</label>
                   <input
                     type="text"
                     value={singleRecipient}
@@ -331,12 +363,13 @@ export function Airdropper() {
                   />
                 </div>
                 <div className="form-group">
-                  <label>Amount (whole tokens)</label>
+                  <label>Amount (NAT, whole tokens)</label>
                   <input
                     type="number"
                     value={singleAmount}
                     onChange={(e) => setSingleAmount(e.target.value)}
                     placeholder="100"
+                    min="1"
                     required
                   />
                 </div>
@@ -347,59 +380,66 @@ export function Airdropper() {
                       checked={useMint}
                       onChange={(e) => setUseMint(e.target.checked)}
                     />{" "}
-                    Mint new tokens (requires MINTER_ROLE)
+                    Mint new tokens instead of using existing balance (requires
+                    MINTER_ROLE)
                   </label>
                 </div>
                 <button type="submit" disabled={loading}>
-                  {loading ? "Processing..." : "Airdrop"}
+                  {loading ? "Processing..." : "Send airdrop"}
                 </button>
               </form>
-            </div>
+            </section>
+          </section>
 
-            <div className="card">
-              <h2>Batch Airdrop</h2>
-              <p>
-                Enter one address/amount per line. Recipients must be citizens.
-              </p>
-              <form onSubmit={handleBatchAirdrop}>
-                <div className="form-group">
-                  <label>Recipient Addresses (one per line)</label>
-                  <textarea
-                    value={batchRecipients}
-                    onChange={(e) => setBatchRecipients(e.target.value)}
-                    placeholder="0x123...&#10;0x456...&#10;0x789..."
-                    rows={5}
-                    required
-                  />
-                </div>
-                <div className="form-group">
-                  <label>Amounts in whole tokens (one per line)</label>
-                  <textarea
-                    value={batchAmounts}
-                    onChange={(e) => setBatchAmounts(e.target.value)}
-                    placeholder="100&#10;200&#10;150"
-                    rows={5}
-                    required
-                  />
-                </div>
-                <div className="form-group">
-                  <label>
-                    <input
-                      type="checkbox"
-                      checked={batchUseMint}
-                      onChange={(e) => setBatchUseMint(e.target.checked)}
-                    />{" "}
-                    Mint new tokens (requires MINTER_ROLE)
-                  </label>
-                </div>
-                <button type="submit" disabled={loading}>
-                  {loading ? "Processing..." : "Batch Airdrop"}
-                </button>
-              </form>
+          <section className="card citizens-list-card">
+            <div className="admin-section-header">
+              <div>
+                <h2>Batch airdrop</h2>
+                <p>
+                  Send NAT to multiple citizens at once. One address and amount
+                  per line.
+                </p>
+              </div>
             </div>
-          </>
-        )}
-      </div>
+            <form onSubmit={handleBatchAirdrop}>
+              <div className="form-group">
+                <label>Recipient addresses (one per line)</label>
+                <textarea
+                  value={batchRecipients}
+                  onChange={(e) => setBatchRecipients(e.target.value)}
+                  placeholder={"0x123...\n0x456...\n0x789..."}
+                  rows={5}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label>Amounts in NAT (one per line, whole tokens)</label>
+                <textarea
+                  value={batchAmounts}
+                  onChange={(e) => setBatchAmounts(e.target.value)}
+                  placeholder={"100\n200\n150"}
+                  rows={5}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={batchUseMint}
+                    onChange={(e) => setBatchUseMint(e.target.checked)}
+                  />{" "}
+                  Mint new tokens instead of using existing balance (requires
+                  MINTER_ROLE)
+                </label>
+              </div>
+              <button type="submit" disabled={loading}>
+                {loading ? "Processing..." : "Send batch airdrop"}
+              </button>
+            </form>
+          </section>
+        </>
+      )}
     </div>
   );
 }

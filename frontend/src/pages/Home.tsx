@@ -1,4 +1,5 @@
 import { useState, useEffect, FormEvent } from "react";
+import { Link } from "react-router-dom";
 import { ethers, Contract } from "ethers";
 import {
   SOULBOUND_CITIZEN_ID_ADDRESS,
@@ -323,66 +324,171 @@ export function Home() {
 
   if (!account) {
     return (
-      <div style={{ padding: "20px" }}>
+      <div className="home-page">
         <div className="container">
-          <div className="card">
-            <h1>Country DAO Election System</h1>
-            <p className="subtitle">
-              Connect your wallet to participate in decentralized elections
-            </p>
-            {error && <div className="error">{error}</div>}
-            <button onClick={connectWallet} style={{ marginTop: "20px" }}>
-              Connect MetaMask
-            </button>
-          </div>
+          <section className="home-hero-card">
+            <div className="home-hero-header">
+              <div>
+                <p className="eyebrow">Nation-scale governance on-chain</p>
+                <h1 className="home-title">CountryDAO Election System</h1>
+                <p className="home-subtitle">
+                  Soulbound citizenship, deflationary token voting, and
+                  transparent elections &mdash; all secured by Ethereum.
+                </p>
+              </div>
+            </div>
+
+            <div className="home-hero-body">
+              <div className="home-hero-left">
+                <div className="home-hero-highlight">
+                  <span className="home-hero-badge">Step 1</span>
+                  <span className="home-hero-highlight-text">
+                    Connect your wallet to join the nation.
+                  </span>
+                </div>
+                {error && <div className="error">{error}</div>}
+              </div>
+              <div className="home-hero-right">
+                <button onClick={connectWallet} className="home-primary-cta">
+                  Connect MetaMask
+                </button>
+                <p className="home-hero-footnote">
+                  You&apos;ll be prompted by MetaMask to approve the connection.
+                </p>
+              </div>
+            </div>
+          </section>
         </div>
       </div>
     );
   }
 
   return (
-    <div style={{ padding: "20px" }}>
+    <div className="home-page">
       <div className="container">
-        <header>
-          <h1>Country DAO Election System</h1>
-          <p className="subtitle">
-            Soulbound Citizenship • Token Governance • Democratic Elections
-          </p>
-
-          <div className="wallet-section">
-            <div className="wallet-info">
-              {account && (
-                <CopyableAddress
-                  address={account}
-                  className="address"
-                  showFull={true}
-                />
-              )}
-              <span
-                className={`status-badge ${isCitizen ? "active" : "inactive"}`}
-              >
-                {isCitizen ? "✓ Citizen" : "✗ Not a Citizen"}
+        <section className="home-hero-card">
+          <div className="home-hero-header">
+            <div>
+              <p className="eyebrow">Nation-scale governance on-chain</p>
+              <h1 className="home-title">CountryDAO Election System</h1>
+              <p className="home-subtitle">
+                Soulbound Citizenship • Token Governance • Democratic Elections
+              </p>
+            </div>
+            <div className="home-hero-pills">
+              <span className="pill pill--accent">
+                <span className="pill-dot" />
+                Connected
               </span>
-              <span className="status-badge">{tokenBalance} NAT</span>
-              {isOwner && <span className="status-badge active">Admin</span>}
+              {isCitizen ? (
+                <span className="pill pill--success">Citizen</span>
+              ) : (
+                <span className="pill pill--muted">No citizenship</span>
+              )}
+              {isOwner && <span className="pill pill--outline">Admin</span>}
             </div>
           </div>
-        </header>
 
-        {error && <div className="error">{error}</div>}
-        {success && <div className="success">{success}</div>}
+          <div className="home-hero-body">
+            <div className="home-hero-left">
+              <div className="home-wallet-card">
+                <div className="home-wallet-row">
+                  <span className="home-wallet-label">Connected wallet</span>
+                  {account && (
+                    <CopyableAddress
+                      address={account}
+                      className="address"
+                      showFull={true}
+                    />
+                  )}
+                </div>
+                <div className="home-wallet-row home-wallet-grid">
+                  <div>
+                    <span className="home-wallet-label">Citizenship</span>
+                    <span
+                      className={`status-badge ${
+                        isCitizen ? "active" : "inactive"
+                      }`}
+                    >
+                      {isCitizen ? "✓ Citizen" : "✗ Not a Citizen"}
+                    </span>
+                  </div>
+                  <div>
+                    <span className="home-wallet-label">Balance</span>
+                    <span className="status-badge">{tokenBalance} NAT</span>
+                  </div>
+                  {isOwner && (
+                    <div>
+                      <span className="home-wallet-label">Role</span>
+                      <span className="status-badge active">Admin</span>
+                    </div>
+                  )}
+                </div>
+              </div>
 
-        <div className="main-content">
-          {/* Step 1: Citizenship Issuance */}
-          <div className="card">
-            <h2>Step 1: Citizenship</h2>
+              {error && <div className="error">{error}</div>}
+              {success && <div className="success">{success}</div>}
+            </div>
+
+            <div className="home-hero-right">
+              <div className="home-steps-card">
+                <h2>Get started in three steps</h2>
+                <ol className="home-steps">
+                  <li>
+                    <span className="home-step-index">1</span>
+                    <div>
+                      <p className="home-step-title">Register citizenship</p>
+                      <p className="home-step-copy">
+                        Mint a soulbound CitizenID NFT tied to your wallet.
+                      </p>
+                    </div>
+                  </li>
+                  <li>
+                    <span className="home-step-index">2</span>
+                    <div>
+                      <p className="home-step-title">Receive NAT tokens</p>
+                      <p className="home-step-copy">
+                        Ask the treasury admin to airdrop NAT so you can vote.
+                      </p>
+                    </div>
+                  </li>
+                  <li>
+                    <span className="home-step-index">3</span>
+                    <div>
+                      <p className="home-step-title">Vote in elections</p>
+                      <p className="home-step-copy">
+                        Spend 1 NAT per vote to elect officials and steer policy.
+                      </p>
+                    </div>
+                  </li>
+                </ol>
+                <div className="home-quick-links">
+                  <Link to="/citizens" className="home-link-cta">
+                    Open Citizens page
+                  </Link>
+                  <Link to="/officials" className="home-link-secondary">
+                    View current elections
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div className="home-grid">
+          <section className="card home-card">
+            <h2>Citizenship status</h2>
             {!isCitizen ? (
               <>
                 <p>
                   You need citizenship to participate in elections. Register
                   yourself for a soulbound Citizen ID NFT.
                 </p>
-                <button onClick={handleIssueCitizenship} disabled={loading}>
+                <button
+                  onClick={handleIssueCitizenship}
+                  disabled={loading}
+                  className="home-primary-cta"
+                >
                   {loading ? "Registering..." : "Register as Citizen"}
                 </button>
               </>
@@ -392,179 +498,164 @@ export function Home() {
                 tokens).
               </div>
             )}
-          </div>
+          </section>
 
-          {/* Step 3: Add Candidates */}
-          {isOwner && Object.keys(positions).length > 0 && (
-            <div className="card">
-              <h2>Step 3: Add Candidates</h2>
-              <form onSubmit={handleAddCandidate}>
-                <div className="form-group">
-                  <label>Position</label>
-                  <select
-                    value={selectedPositionForCandidate}
-                    onChange={(e) =>
-                      setSelectedPositionForCandidate(Number(e.target.value))
-                    }
-                  >
-                    {Object.entries(positions).map(([id, pos]) => (
-                      <option key={id} value={id}>
-                        {pos.name} {pos.active ? "(Active)" : "(Closed)"}
-                      </option>
-                    ))}
-                  </select>
+          <section className="card home-card">
+            <h2>Admin actions</h2>
+            {isOwner ? (
+              <>
+                <p>
+                  As an admin, you can create positions, add candidates, and
+                  manage roles from the Admin console.
+                </p>
+                <div className="home-admin-actions">
+                  <Link to="/admin" className="home-link-cta">
+                    Go to Admin console
+                  </Link>
+                  <Link to="/airdropper" className="home-link-secondary">
+                    Open Airdropper
+                  </Link>
                 </div>
-                <div className="form-group">
-                  <label>Candidate Address</label>
-                  <input
-                    type="text"
-                    value={candidateAddress}
-                    onChange={(e) => setCandidateAddress(e.target.value)}
-                    placeholder="0x..."
-                    required
-                  />
-                </div>
-                <button type="submit" disabled={loading}>
-                  {loading ? "Adding..." : "Add Candidate"}
-                </button>
-              </form>
-            </div>
-          )}
+              </>
+            ) : (
+              <div className="info">
+                You don&apos;t have admin permissions. Admins can create and
+                close positions, add candidates, and manage NAT token roles.
+              </div>
+            )}
+          </section>
         </div>
 
-        {/* Step 4: Elections */}
-        {Object.entries(positions).map(([id, position]) => {
-          const positionId = Number(id);
-          const candidates = candidatesByPosition[positionId] || [];
-          const hasVoted = hasVotedByPosition[positionId] || false;
-          const winner = winners[positionId];
-          const canVote =
-            isCitizen &&
-            Number(tokenBalance) > 0 &&
-            position.active &&
-            !hasVoted;
+        <section className="home-elections">
+          <div className="home-elections-header">
+            <h2>Open elections</h2>
+            <p className="home-elections-subtitle">
+              Vote with NAT tokens for candidates in active positions. Each vote
+              burns 1 NAT to prevent spam.
+            </p>
+          </div>
 
-          return (
-            <div key={id} className="card">
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                }}
-              >
-                <h2>{position.name}</h2>
-                <div>
-                  <span
-                    className={`status-badge ${
-                      position.active ? "active" : "inactive"
-                    }`}
-                  >
-                    {position.active ? "Active" : "Closed"}
-                  </span>
-                  {hasVoted && <span className="status-badge">Voted</span>}
+          {Object.entries(positions).map(([id, position]) => {
+            const positionId = Number(id);
+            const candidates = candidatesByPosition[positionId] || [];
+            const hasVoted = hasVotedByPosition[positionId] || false;
+            const winner = winners[positionId];
+            const canVote =
+              isCitizen &&
+              Number(tokenBalance) > 0 &&
+              position.active &&
+              !hasVoted;
+
+            return (
+              <div key={id} className="card home-election-card">
+                <div className="home-election-header">
+                  <div>
+                    <h3>{position.name}</h3>
+                    <p className="home-election-meta">
+                      Position ID #{positionId}
+                    </p>
+                  </div>
+                  <div className="home-election-tags">
+                    <span
+                      className={`status-badge ${
+                        position.active ? "active" : "inactive"
+                      }`}
+                    >
+                      {position.active ? "Active" : "Closed"}
+                    </span>
+                    {hasVoted && <span className="status-badge">Voted</span>}
+                  </div>
                 </div>
-              </div>
 
-              {!position.active && winner && (
-                <div
-                  className="info success-state"
-                  style={{ marginBottom: "15px" }}
-                >
-                  Winner:{" "}
-                  <CopyableAddress address={winner.address} showFull={true} /> (
-                  {winner.voteCount} votes)
-                </div>
-              )}
+                {!position.active && winner && (
+                  <div className="info success-state home-election-winner">
+                    Winner:&nbsp;
+                    <CopyableAddress
+                      address={winner.address}
+                      showFull={true}
+                    />{" "}
+                    ({winner.voteCount} votes)
+                  </div>
+                )}
 
-              {position.active && canVote && (
-                <div className="info">
-                  You can vote! Click a candidate below.
-                </div>
-              )}
+                {position.active && canVote && (
+                  <div className="info">
+                    You can vote in this election. Each vote costs 1 NAT.
+                  </div>
+                )}
 
-              {position.active && !isCitizen && (
-                <div
-                  className="info"
-                  style={{
-                    backgroundColor: "#fff3cd",
-                    borderColor: "#ffc107",
-                    color: "#856404",
-                  }}
-                >
-                  You need citizenship to vote
-                </div>
-              )}
+                {position.active && !isCitizen && (
+                  <div className="info info-warning">
+                    You need citizenship to vote in this election.
+                  </div>
+                )}
 
-              {position.active && isCitizen && Number(tokenBalance) === 0 && (
-                <div
-                  className="info"
-                  style={{
-                    backgroundColor: "#fff3cd",
-                    borderColor: "#ffc107",
-                    color: "#856404",
-                  }}
-                >
-                  You need Nation Tokens to vote
-                </div>
-              )}
-
-              <div className="candidate-list">
-                {candidates.length === 0 ? (
-                  <div className="empty-state">No candidates yet</div>
-                ) : (
-                  candidates.map((candidate, idx) => (
-                    <div key={idx} className="candidate-item">
-                      <div className="candidate-info">
-                        <CopyableAddress
-                          address={candidate.address}
-                          className="candidate-address"
-                          showFull={true}
-                        />
-                      </div>
-                      <div className="vote-count">
-                        {candidate.voteCount} votes
-                      </div>
-                      {!position.active &&
-                        winner?.address === candidate.address && (
-                          <div className="winner-badge">Winner</div>
-                        )}
-                      {canVote && (
-                        <button
-                          onClick={() =>
-                            handleVote(positionId, candidate.address)
-                          }
-                          disabled={loading}
-                        >
-                          Vote
-                        </button>
-                      )}
+                {position.active &&
+                  isCitizen &&
+                  Number(tokenBalance) === 0 && (
+                    <div className="info info-warning">
+                      You need NAT tokens to vote. Request an airdrop from an
+                      admin.
                     </div>
-                  ))
+                  )}
+
+                <div className="candidate-list">
+                  {candidates.length === 0 ? (
+                    <div className="empty-state">No candidates yet</div>
+                  ) : (
+                    candidates.map((candidate, idx) => (
+                      <div key={idx} className="candidate-item">
+                        <div className="candidate-info">
+                          <CopyableAddress
+                            address={candidate.address}
+                            className="candidate-address"
+                            showFull={true}
+                          />
+                        </div>
+                        <div className="vote-count">
+                          {candidate.voteCount} votes
+                        </div>
+                        {!position.active &&
+                          winner?.address === candidate.address && (
+                            <div className="winner-badge">Winner</div>
+                          )}
+                        {canVote && (
+                          <button
+                            onClick={() =>
+                              handleVote(positionId, candidate.address)
+                            }
+                            disabled={loading}
+                          >
+                            Vote
+                          </button>
+                        )}
+                      </div>
+                    ))
+                  )}
+                </div>
+
+                {isOwner && position.active && (
+                  <button
+                    onClick={() => handleClosePosition(positionId)}
+                    disabled={loading}
+                    className="secondary"
+                    style={{ marginTop: "15px" }}
+                  >
+                    Close Position
+                  </button>
                 )}
               </div>
+            );
+          })}
 
-              {isOwner && position.active && (
-                <button
-                  onClick={() => handleClosePosition(positionId)}
-                  disabled={loading}
-                  className="secondary"
-                  style={{ marginTop: "15px" }}
-                >
-                  Close Position
-                </button>
-              )}
+          {Object.keys(positions).length === 0 && !isOwner && (
+            <div className="card home-election-card">
+              <div className="empty-state">
+                No election positions created yet. Please check back later.
+              </div>
             </div>
-          );
-        })}
-
-        {Object.keys(positions).length === 0 && !isOwner && (
-          <div className="card">
-            <div className="empty-state">
-              No election positions created yet. Please check back later.
-            </div>
-          </div>
-        )}
+          )}
+        </section>
       </div>
     </div>
   );

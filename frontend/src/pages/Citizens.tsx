@@ -20,6 +20,11 @@ export function Citizens() {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
   const [account, setAccount] = useState<string | null>(null);
+  const [isCitizen, setIsCitizen] = useState<boolean>(false);
+  const [tokenBalance, setTokenBalance] = useState<string>("0");
+  const [isRegistering, setIsRegistering] = useState<boolean>(false);
+  const [registrationSuccess, setRegistrationSuccess] = useState<string>("");
+  const [registrationError, setRegistrationError] = useState<string>("");
 
   useEffect(() => {
     loadCitizens();
@@ -73,6 +78,8 @@ export function Citizens() {
       const decimals = Number(decimalsValue);
       const citizenData: Citizen[] = [];
       let sumOfCitizenBalances = BigInt(0);
+      let currentAccountIsCitizen = false;
+      let currentAccountBalance = "0";
 
       for (const address of citizenAddresses) {
         // Verify they still have the NFT (in case of burns)
@@ -80,9 +87,16 @@ export function Citizens() {
         if (Number(balance) > 0) {
           const tokenBalance = await nationTokenContract.balanceOf(address);
           sumOfCitizenBalances += tokenBalance;
+          const formatted = ethers.formatUnits(tokenBalance, decimals);
+
+          if (account && address.toLowerCase() === account.toLowerCase()) {
+            currentAccountIsCitizen = true;
+            currentAccountBalance = formatted;
+          }
+
           citizenData.push({
             address,
-            tokenBalance: ethers.formatUnits(tokenBalance, decimals),
+            tokenBalance: formatted,
           });
         }
       }
@@ -115,11 +129,46 @@ export function Citizens() {
 
       setCitizens(citizenData);
       setTotalSupply(formattedTotalSupply);
+      setIsCitizen(currentAccountIsCitizen);
+      setTokenBalance(currentAccountBalance);
       setLoading(false);
     } catch (err: any) {
       console.error("Error loading citizens:", err);
       setError("Failed to load citizens: " + err.message);
       setLoading(false);
+    }
+  };
+
+  const handleRegisterCitizenship = async () => {
+    try {
+      if (!window.ethereum) {
+        setRegistrationError("Please install MetaMask to register as a citizen");
+        return;
+      }
+
+      setRegistrationError("");
+      setRegistrationSuccess("");
+      setIsRegistering(true);
+
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
+
+      const citizenIdContract = new Contract(
+        SOULBOUND_CITIZEN_ID_ADDRESS,
+        SOULBOUND_CITIZEN_ID_ABI,
+        signer
+      );
+
+      const tx = await citizenIdContract.registerCitizen();
+      await tx.wait();
+
+      setRegistrationSuccess("Citizenship registered successfully!");
+      await loadCitizens();
+    } catch (err: any) {
+      const message = err?.reason || err?.message || "Transaction failed";
+      setRegistrationError("Failed to register citizenship: " + message);
+    } finally {
+      setIsRegistering(false);
     }
   };
 
@@ -132,11 +181,21 @@ export function Citizens() {
             View all registered citizens and their token holdings
           </p>
         </div>
-        <div className="card">
-          <div className="info">
-            Please connect your wallet to view citizens
+        <section className="card citizens-hero-card">
+          <div className="citizens-hero-content">
+            <p className="eyebrow">Membership registry</p>
+            <h2>Connect your wallet to view citizens</h2>
+            <p className="citizens-hero-subtitle">
+              The registry lists every address that holds a soulbound CitizenID
+              NFT, along with its NAT token balance.
+            </p>
           </div>
-        </div>
+          <div className="citizens-hero-status">
+            <div className="info">
+              Please connect your wallet from the navigation bar to continue.
+            </div>
+          </div>
+        </section>
       </div>
     );
   }
@@ -150,9 +209,16 @@ export function Citizens() {
             View all registered citizens and their token holdings
           </p>
         </div>
-        <div className="card">
-          <div className="info">Loading citizens...</div>
-        </div>
+        <section className="card citizens-hero-card">
+          <div className="citizens-hero-content">
+            <p className="eyebrow">Membership registry</p>
+            <h2>Loading citizens...</h2>
+            <p className="citizens-hero-subtitle">
+              Fetching all current CitizenID holders and their associated NAT
+              balances.
+            </p>
+          </div>
+        </section>
       </div>
     );
   }
@@ -166,9 +232,19 @@ export function Citizens() {
             View all registered citizens and their token holdings
           </p>
         </div>
-        <div className="card">
-          <div className="error">{error}</div>
-        </div>
+        <section className="card citizens-hero-card">
+          <div className="citizens-hero-content">
+            <p className="eyebrow">Membership registry</p>
+            <h2>Unable to load citizens</h2>
+            <p className="citizens-hero-subtitle">
+              There was an error while reading from the citizenship and token
+              contracts.
+            </p>
+          </div>
+          <div className="citizens-hero-status">
+            <div className="error">{error}</div>
+          </div>
+        </section>
       </div>
     );
   }
@@ -182,18 +258,71 @@ export function Citizens() {
         </p>
       </div>
 
-      <div className="card stats-card">
-        <div className="stat-item">
-          <div className="stat-label">Total Citizens</div>
-          <div className="stat-value">{citizens.length}</div>
-        </div>
-        <div className="stat-item">
-          <div className="stat-label">Total Currency Supply</div>
-          <div className="stat-value">{totalSupply} NAT</div>
-        </div>
-      </div>
+      <section className="citizens-layout">
+        <section className="card citizens-status-card">
+          <div className="citizens-status-header">
+            <div>
+              <p className="eyebrow">Your citizenship</p>
+              <h2>{isCitizen ? "You are a registered citizen" : "Become a citizen"}</h2>
+              <p className="citizens-hero-subtitle">
+                Citizenship is represented by a soulbound NFT that cannot be
+                transferred and is permanently tied to your address.
+              </p>
+            </div>
+            <div className="citizens-status-badges">
+              <span
+                className={`status-badge ${isCitizen ? "active" : "inactive"}`}
+              >
+                {isCitizen ? "✓ Citizen" : "✗ Not a Citizen"}
+              </span>
+              <span className="status-badge">
+                {tokenBalance} NAT
+              </span>
+            </div>
+          </div>
 
-      <div className="card">
+          <div className="citizens-status-body">
+            {registrationError && <div className="error">{registrationError}</div>}
+            {registrationSuccess && (
+              <div className="success">{registrationSuccess}</div>
+            )}
+
+            {!isCitizen ? (
+              <div className="citizens-status-action">
+                <p>
+                  Register yourself for a CitizenID NFT to participate in
+                  elections, receive airdrops, and access all citizen-only
+                  features.
+                </p>
+                <button
+                  onClick={handleRegisterCitizenship}
+                  disabled={isRegistering}
+                >
+                  {isRegistering ? "Registering..." : "Register as Citizen"}
+                </button>
+              </div>
+            ) : (
+              <div className="info success-state">
+                ✓ You already hold a CitizenID NFT. You can now vote in
+                elections and receive NAT airdrops.
+              </div>
+            )}
+          </div>
+        </section>
+
+        <section className="card stats-card">
+          <div className="stat-item">
+            <div className="stat-label">Total Citizens</div>
+            <div className="stat-value">{citizens.length}</div>
+          </div>
+          <div className="stat-item">
+            <div className="stat-label">Total Currency Supply</div>
+            <div className="stat-value">{totalSupply} NAT</div>
+          </div>
+        </section>
+      </section>
+
+      <section className="card citizens-list-card">
         <h2>Registered Citizens</h2>
         {citizens.length === 0 ? (
           <div className="empty-state">No citizens registered yet</div>
@@ -218,7 +347,7 @@ export function Citizens() {
             ))}
           </div>
         )}
-      </div>
+      </section>
     </div>
   );
 }
