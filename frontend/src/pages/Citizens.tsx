@@ -41,7 +41,8 @@ export function Citizens() {
 
       const provider = new ethers.BrowserProvider(window.ethereum);
       const accounts = await provider.send("eth_requestAccounts", []);
-      setAccount(accounts[0]);
+      const currentAccount = accounts[0];
+      setAccount(currentAccount);
 
       const signer = await provider.getSigner();
       const citizenIdContract = new Contract(
@@ -54,6 +55,16 @@ export function Citizens() {
         NATION_TOKEN_ABI,
         signer
       );
+
+      // Check current account's citizenship status directly
+      const currentAccountCitizenBalance = await citizenIdContract.balanceOf(currentAccount);
+      const currentAccountIsCitizen = Number(currentAccountCitizenBalance) > 0;
+      
+      // Get current account's token balance
+      const decimalsValue = await nationTokenContract.decimals();
+      const decimals = Number(decimalsValue);
+      const currentAccountTokenBalance = await nationTokenContract.balanceOf(currentAccount);
+      const currentAccountBalance = ethers.formatUnits(currentAccountTokenBalance, decimals);
 
       // Get all citizens by iterating through token IDs
       // This is more reliable than event queries
@@ -74,13 +85,8 @@ export function Citizens() {
       }
 
       // Get token balance for each citizen
-      const decimalsValue = await nationTokenContract.decimals();
-      // Ensure decimals is a number (ethers v6 may return bigint for uint8 in some cases)
-      const decimals = Number(decimalsValue);
       const citizenData: Citizen[] = [];
       let sumOfCitizenBalances = BigInt(0);
-      let currentAccountIsCitizen = false;
-      let currentAccountBalance = "0";
 
       for (const address of citizenAddresses) {
         // Verify they still have the NFT (in case of burns)
@@ -89,11 +95,6 @@ export function Citizens() {
           const tokenBalance = await nationTokenContract.balanceOf(address);
           sumOfCitizenBalances += tokenBalance;
           const formatted = ethers.formatUnits(tokenBalance, decimals);
-
-          if (account && address.toLowerCase() === account.toLowerCase()) {
-            currentAccountIsCitizen = true;
-            currentAccountBalance = formatted;
-          }
 
           citizenData.push({
             address,
