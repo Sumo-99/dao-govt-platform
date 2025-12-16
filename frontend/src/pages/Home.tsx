@@ -10,7 +10,7 @@ import {
   ELECTION_ABI,
 } from "../config";
 import { CopyableAddress } from "../components/CopyableAddress";
-import "../App.css";
+import "./Pages.css";
 
 interface Position {
   name: string;
@@ -525,6 +525,47 @@ export function Home() {
             )}
           </section>
         </div>
+
+        {/* Step 3: Add Candidates */}
+        {isOwner && Object.keys(positions).length > 0 && (
+          <section className="card">
+            <h2>Step 3: Add Candidates</h2>
+            <p>
+              Add candidates to election positions. Candidates must be citizen
+              addresses.
+            </p>
+            <form onSubmit={handleAddCandidate}>
+              <div className="form-group">
+                <label>Position</label>
+                <select
+                  value={selectedPositionForCandidate}
+                  onChange={(e) =>
+                    setSelectedPositionForCandidate(Number(e.target.value))
+                  }
+                >
+                  {Object.entries(positions).map(([id, pos]) => (
+                    <option key={id} value={id}>
+                      {pos.name} {pos.active ? "(Active)" : "(Closed)"}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="form-group">
+                <label>Candidate Address</label>
+                <input
+                  type="text"
+                  value={candidateAddress}
+                  onChange={(e) => setCandidateAddress(e.target.value)}
+                  placeholder="0x..."
+                  required
+                />
+              </div>
+              <button type="submit" disabled={loading}>
+                {loading ? "Adding..." : "Add Candidate"}
+              </button>
+            </form>
+          </section>
+        )}
 
         <section className="home-elections">
           <div className="home-elections-header">

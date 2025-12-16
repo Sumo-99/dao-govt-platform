@@ -419,6 +419,288 @@
   border: 1px solid rgba(71, 85, 105, 0.6);
 }
 
+/* Card styles for general use */
+.card {
+  background: radial-gradient(circle at top, rgba(30, 41, 59, 0.96), rgba(30, 41, 59, 1));
+  padding: 1.5rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(71, 85, 105, 0.6);
+  box-shadow: var(--shadow-soft);
+  margin-bottom: 1.5rem;
+}
+
+.card h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid rgba(71, 85, 105, 0.5);
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.card h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-top: 1.25rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+}
+
+.card p {
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+}
+
+/* Form styles */
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+.form-group:last-of-type {
+  margin-bottom: 1.5rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  letter-spacing: 0.01em;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid rgba(71, 85, 105, 0.6);
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+  font-family: inherit;
+  background-color: #1e293b;
+  color: #f1f5f9;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+input:hover,
+select:hover,
+textarea:hover {
+  border-color: rgba(100, 116, 139, 0.8);
+  background-color: #2d3a4d;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--primary-color, #fb923c);
+  box-shadow: 0 0 0 3px rgba(251, 146, 60, 0.15);
+  background-color: #334155;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--text-muted, #94a3b8);
+}
+
+/* Ensure select dropdown text is visible */
+select option {
+  background-color: rgba(30, 41, 59, 1);
+  color: var(--text-primary, #f1f5f9);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
+  line-height: 1.5;
+}
+
+/* Checkbox Styling */
+input[type="checkbox"] {
+  width: auto;
+  height: 20px;
+  cursor: pointer;
+  accent-color: var(--primary-color, #fb923c);
+  margin-right: 8px;
+}
+
+label:has(input[type="checkbox"]) {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 0.75rem 1rem;
+  border: 2px solid rgba(71, 85, 105, 0.6);
+  border-radius: var(--radius-md);
+  background-color: rgba(51, 65, 85, 0.5);
+  color: var(--text-primary);
+  transition: all 0.2s ease;
+}
+
+label:has(input[type="checkbox"]):hover {
+  border-color: var(--primary-color, #fb923c);
+  background-color: rgba(51, 65, 85, 0.7);
+}
+
+/* Button styles */
+button {
+  padding: 0.75rem 1.5rem;
+  background-color: var(--primary-color, #fb923c);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(251, 146, 60, 0.3);
+}
+
+button:hover:not(:disabled) {
+  background-color: var(--primary-hover, #f97316);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(251, 146, 60, 0.4);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+button.secondary {
+  background-color: rgba(71, 85, 105, 0.8);
+  color: var(--text-primary);
+}
+
+button.secondary:hover:not(:disabled) {
+  background-color: rgba(71, 85, 105, 1);
+  color: #f8fafc;
+}
+
+/* Alert/Message styles */
+.error {
+  background: rgba(248, 113, 113, 0.15);
+  color: #fca5a5;
+  padding: 0.875rem 1rem;
+  border-radius: var(--radius-md);
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  border-left: 4px solid #f87171;
+  font-weight: 500;
+}
+
+.success {
+  background: rgba(74, 222, 128, 0.15);
+  color: #86efac;
+  padding: 0.875rem 1rem;
+  border-radius: var(--radius-md);
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  border-left: 4px solid #4ade80;
+  font-weight: 500;
+}
+
+.info {
+  background: rgba(96, 165, 250, 0.15);
+  color: #93c5fd;
+  padding: 0.875rem 1rem;
+  border-radius: var(--radius-md);
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  border-left: 4px solid #60a5fa;
+}
+
+.info.success-state {
+  background: rgba(74, 222, 128, 0.15);
+  color: #86efac;
+  border-left-color: #4ade80;
+  font-weight: 500;
+}
+
+.info-warning {
+  background: rgba(250, 204, 21, 0.15);
+  color: #fde047;
+  border-left-color: #facc15;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 2.5rem 2rem;
+  color: var(--text-secondary);
+  background-color: rgba(51, 65, 85, 0.4);
+  border-radius: var(--radius-md);
+  border: 2px dashed rgba(71, 85, 105, 0.6);
+  font-weight: 500;
+}
+
+/* Candidate list styles */
+.candidate-list {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.candidate-item {
+  padding: 1rem;
+  border: 2px solid rgba(71, 85, 105, 0.6);
+  border-radius: var(--radius-md);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  background: radial-gradient(circle at top, rgba(51, 65, 85, 0.5), rgba(30, 41, 59, 0.8));
+  transition: all 0.2s ease;
+}
+
+.candidate-item:hover {
+  border-color: var(--primary-color, #fb923c);
+  background: radial-gradient(circle at top, rgba(51, 65, 85, 0.7), rgba(30, 41, 59, 0.9));
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.candidate-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.candidate-address {
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+  color: var(--text-primary);
+  font-weight: 500;
+  word-break: break-all;
+}
+
+.vote-count {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--primary-color, #fb923c);
+  margin-left: 0.75rem;
+}
+
+.winner-badge {
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+  color: #0f172a;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Loading state */
+.loading {
+  text-align: center;
+  padding: 2.5rem;
+  color: var(--text-secondary);
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .page-container {
@@ -481,5 +763,15 @@
   .info-value {
     max-width: 100%;
     font-size: 0.75rem;
+  }
+
+  .candidate-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .vote-count {
+    margin-left: 0;
   }
 }
