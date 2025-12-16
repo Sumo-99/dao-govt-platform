@@ -705,11 +705,13 @@ button:disabled {
 }
 
 button.secondary {
-  background-color: var(--text-secondary);
+  background-color: rgba(71, 85, 105, 0.8);
+  color: var(--text-primary);
 }
 
 button.secondary:hover:not(:disabled) {
-  background-color: #4b5563;
+  background-color: rgba(71, 85, 105, 1);
+  color: #f8fafc;
 }
 
 .loading {
@@ -825,10 +827,11 @@ button.secondary:hover:not(:disabled) {
 .empty-state {
   text-align: center;
   padding: 40px 32px;
-  color: var(--text-secondary);
-  background-color: #f9fafb;
+  color: var(--text-primary);
+  background-color: rgba(51, 65, 85, 0.4);
   border-radius: 8px;
-  border: 2px dashed var(--border-color);
+  border: 2px dashed rgba(71, 85, 105, 0.6);
+  font-weight: 500;
 }
 
 @media (max-width: 768px) {
