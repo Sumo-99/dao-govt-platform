@@ -77,71 +77,122 @@ export function Navbar() {
     }
   };
 
+  const isHome = location.pathname === "/";
+  const isCitizens = location.pathname === "/citizens";
+  const isOfficials = location.pathname === "/officials";
+  const isAdminRoute = location.pathname === "/admin";
+  const isAirdropper = location.pathname === "/airdropper";
+
   return (
     <nav className="navbar">
-      <div className="navbar-container">
-        <div className="navbar-brand">
-          <h1>Country DAO</h1>
-        </div>
-        <ul className="navbar-links">
-          <li>
-            <Link to="/" className={location.pathname === "/" ? "active" : ""}>
-              Main App
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="/citizens"
-              className={location.pathname === "/citizens" ? "active" : ""}
-            >
-              Citizens
-            </Link>
-          </li>
-          <li>
-            {isCitizen ? (
-              <Link
-                to="/officials"
-                className={location.pathname === "/officials" ? "active" : ""}
-              >
-                Officials
-              </Link>
-            ) : (
-              <span
-                className="navbar-link-disabled"
-                title="You must be a citizen to view this page"
-              >
-                Officials 🔒
+      <div className="navbar-shell">
+        <div className="navbar-left">
+          <Link to="/" className="navbar-logo">
+            <div className="navbar-logo-mark">
+              <span className="navbar-logo-orb" />
+              <span className="navbar-logo-orbit" />
+            </div>
+            <div className="navbar-logo-text">
+              <span className="navbar-logo-title">CountryDAO</span>
+              <span className="navbar-logo-subtitle">
+                On‑chain civic governance
               </span>
-            )}
-          </li>
-          {isAdmin && (
+            </div>
+          </Link>
+        </div>
+
+        <div className="navbar-center">
+          <ul className="navbar-links">
             <li>
               <Link
-                to="/admin"
-                className={location.pathname === "/admin" ? "active" : ""}
+                to="/"
+                className={`navbar-link ${isHome ? "navbar-link--active" : ""}`}
               >
-                Admin
+                Overview
               </Link>
             </li>
-          )}
-          <li>
-            {isCitizen ? (
+            <li>
               <Link
-                to="/airdropper"
-                className={location.pathname === "/airdropper" ? "active" : ""}
+                to="/citizens"
+                className={`navbar-link ${
+                  isCitizens ? "navbar-link--active" : ""
+                }`}
               >
-                Airdropper
+                Citizens
               </Link>
-            ) : (
-              <span
-                className="navbar-link-disabled"
-                title="You must be a citizen to view this page"
-              >
-                Airdropper 🔒
+            </li>
+            <li>
+              {isCitizen ? (
+                <Link
+                  to="/officials"
+                  className={`navbar-link ${
+                    isOfficials ? "navbar-link--active" : ""
+                  }`}
+                >
+                  Officials
+                </Link>
+              ) : (
+                <span
+                  className="navbar-link navbar-link--disabled"
+                  title="You must be a citizen to view this page"
+                >
+                  Officials
+                  <span className="navbar-link-lock">🔒</span>
+                </span>
+              )}
+            </li>
+            {isAdmin && (
+              <li>
+                <Link
+                  to="/admin"
+                  className={`navbar-link ${
+                    isAdminRoute ? "navbar-link--active" : ""
+                  }`}
+                >
+                  Admin
+                </Link>
+              </li>
+            )}
+            <li>
+              {isCitizen ? (
+                <Link
+                  to="/airdropper"
+                  className={`navbar-link ${
+                    isAirdropper ? "navbar-link--active" : ""
+                  }`}
+                >
+                  Airdropper
+                </Link>
+              ) : (
+                <span
+                  className="navbar-link navbar-link--disabled"
+                  title="You must be a citizen to view this page"
+                >
+                  Airdropper
+                  <span className="navbar-link-lock">🔒</span>
+                </span>
+              )}
+            </li>
+          </ul>
+        </div>
+
+        <div className="navbar-right">
+          <div className="navbar-badges">
+            <span
+              className={`navbar-pill ${
+                isCitizen ? "navbar-pill--active" : "navbar-pill--muted"
+              }`}
+            >
+              <span className="navbar-pill-dot" />
+              {isCitizen ? "Citizen verified" : "Not a citizen"}
+            </span>
+            {isAdmin && (
+              <span className="navbar-pill navbar-pill--accent">
+                Admin controls
               </span>
             )}
-          </li>
-        </ul>
+          </div>
+        </div>
       </div>
     </nav>
   );
