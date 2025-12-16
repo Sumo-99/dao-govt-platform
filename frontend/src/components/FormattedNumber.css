@@ -1,0 +1,44 @@
+.formatted-number {
+  position: relative;
+  cursor: default;
+  display: inline-block;
+}
+
+.formatted-number-tooltip {
+  position: absolute;
+  bottom: calc(100% + 0.5rem);
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(30, 41, 59, 0.98);
+  color: #f1f5f9;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  z-index: 100;
+  pointer-events: none;
+  border: 1px solid rgba(71, 85, 105, 0.6);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  animation: tooltipFadeIn 0.2s ease;
+}
+
+.formatted-number-tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 0.4rem solid transparent;
+  border-top-color: rgba(30, 41, 59, 0.98);
+}
+
+@keyframes tooltipFadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-0.25rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}

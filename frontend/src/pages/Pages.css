@@ -12,7 +12,7 @@
 .page-header h1 {
   margin: 0 0 0.5rem 0;
   font-size: 2rem;
-  color: var(--text-primary, #e5e7eb);
+  color: var(--text-primary, #f8fafc);
 }
 
 .page-header .subtitle {
@@ -23,7 +23,7 @@
 
 /* Stats Card */
 .stats-card {
-  background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 1));
+  background: radial-gradient(circle at top left, rgba(30, 41, 59, 0.96), rgba(30, 41, 59, 1));
   color: var(--text-primary);
   display: flex;
   gap: 3rem;
@@ -32,7 +32,7 @@
   margin-bottom: 2rem;
   box-shadow: var(--shadow-soft);
   border-radius: var(--radius-md);
-  border: 1px solid rgba(30, 64, 175, 0.85);
+  border: 1px solid rgba(71, 85, 105, 0.7);
 }
 
 .stat-item {
@@ -49,9 +49,11 @@
 }
 
 .stat-value {
-  font-size: 2.5rem;
+  font-size: 1.75rem;
   font-weight: 700;
-  line-height: 1;
+  line-height: 1.2;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 /* List Container */
@@ -62,8 +64,8 @@
 }
 
 .list-item {
-  background: radial-gradient(circle at top, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 1));
-  border: 1px solid rgba(30, 64, 175, 0.8);
+  background: radial-gradient(circle at top, rgba(30, 41, 59, 0.96), rgba(30, 41, 59, 1));
+  border: 1px solid rgba(71, 85, 105, 0.6);
   border-radius: var(--radius-md);
   padding: 1.25rem 1.5rem;
   display: flex;
@@ -74,10 +76,10 @@
 }
 
 .list-item:hover {
-  background: radial-gradient(circle at top, rgba(30, 64, 175, 0.6), rgba(15, 23, 42, 1));
-  border-color: var(--primary-color, #f97316);
+  background: radial-gradient(circle at top, rgba(51, 65, 85, 1), rgba(30, 41, 59, 1));
+  border-color: var(--primary-color, #fb923c);
   transform: translateY(-2px);
-  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.85);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
 }
 
 .list-item-header {
@@ -89,7 +91,7 @@
 
 .list-item-number {
   font-weight: 600;
-  color: var(--primary-color, #f97316);
+  color: var(--primary-color, #fb923c);
   font-size: 0.9rem;
   min-width: 40px;
 }
@@ -97,7 +99,7 @@
 .list-item-address {
   font-family: 'Courier New', monospace;
   font-size: 0.9rem;
-  color: var(--text-primary, #e5e7eb);
+  color: var(--text-primary, #f1f5f9);
   word-break: break-all;
 }
 
@@ -108,13 +110,13 @@
 }
 
 .token-balance {
-  background: radial-gradient(circle at top, rgba(249, 115, 22, 0.18), rgba(15, 23, 42, 1));
+  background: radial-gradient(circle at top, rgba(251, 146, 60, 0.25), rgba(30, 41, 59, 1));
   padding: 0.6rem 1.2rem;
   border-radius: 999px;
   font-weight: 600;
   color: #fed7aa;
-  border: 1px solid var(--primary-color, #f97316);
-  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.9);
+  border: 1px solid var(--primary-color, #fb923c);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
 }
 
 /* Officials Grid */
@@ -125,8 +127,8 @@
 }
 
 .official-card {
-  background: radial-gradient(circle at top, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 1));
-  border: 1px solid rgba(30, 64, 175, 0.85);
+  background: radial-gradient(circle at top, rgba(30, 41, 59, 0.96), rgba(30, 41, 59, 1));
+  border: 1px solid rgba(71, 85, 105, 0.7);
   border-radius: var(--radius-md);
   padding: 1.5rem;
   transition: all 0.3s ease;
@@ -134,7 +136,7 @@
 
 .official-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 26px rgba(15, 23, 42, 0.9);
+  box-shadow: 0 8px 26px rgba(0, 0, 0, 0.4);
 }
 
 .official-header {
@@ -143,22 +145,22 @@
   align-items: center;
   margin-bottom: 1rem;
   padding-bottom: 1rem;
-  border-bottom: 2px solid #e5e7eb;
+  border-bottom: 2px solid rgba(71, 85, 105, 0.5);
 }
 
 .official-header h3 {
   margin: 0;
-  color: var(--text-primary, #e5e7eb);
+  color: var(--text-primary, #f8fafc);
   font-size: 1.4rem;
 }
 
 .position-badge {
-  background: linear-gradient(135deg, #f97316, #facc15);
-  color: white;
+  background: linear-gradient(135deg, #fb923c, #fde047);
+  color: #0f172a;
   padding: 0.35rem 0.75rem;
   border-radius: 6px;
   font-size: 0.75rem;
-  font-weight: 600;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
@@ -172,7 +174,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 0.75rem 0;
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 1px solid rgba(71, 85, 105, 0.4);
 }
 
 .info-row:last-child {
@@ -181,14 +183,14 @@
 
 .info-label {
   font-weight: 600;
-  color: var(--text-secondary, #9ca3af);
+  color: var(--text-secondary, #cbd5e1);
   font-size: 0.9rem;
 }
 
 .info-value {
   font-family: 'Courier New', monospace;
   font-size: 0.85rem;
-  color: var(--text-primary, #e5e7eb);
+  color: var(--text-primary, #f1f5f9);
   word-break: break-all;
   text-align: right;
   max-width: 60%;
@@ -197,7 +199,7 @@
 .info-value.votes {
   font-size: 1.2rem;
   font-weight: 700;
-  color: var(--primary-color, #f97316);
+  color: var(--primary-color, #fb923c);
   font-family: inherit;
 }
 
@@ -240,9 +242,9 @@
 }
 
 .admin-card {
-  background: radial-gradient(circle at top, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 1));
+  background: radial-gradient(circle at top, rgba(30, 41, 59, 0.96), rgba(30, 41, 59, 1));
   border-radius: var(--radius-lg);
-  border: 1px solid rgba(30, 64, 175, 0.9);
+  border: 1px solid rgba(71, 85, 105, 0.6);
   box-shadow: var(--shadow-soft);
 }
 
@@ -276,14 +278,14 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  border: 1px solid rgba(148, 163, 184, 0.85);
-  color: rgba(209, 213, 219, 0.95);
-  background: radial-gradient(circle at top, rgba(15, 23, 42, 1), rgba(15, 23, 42, 0.95));
+  border: 1px solid rgba(71, 85, 105, 0.6);
+  color: rgba(241, 245, 249, 1);
+  background: radial-gradient(circle at top, rgba(51, 65, 85, 1), rgba(30, 41, 59, 0.95));
 }
 
 .badge--accent {
-  border-color: rgba(249, 115, 22, 0.9);
-  background: radial-gradient(circle at top, rgba(249, 115, 22, 0.65), rgba(15, 23, 42, 0.98));
+  border-color: rgba(251, 146, 60, 0.8);
+  background: radial-gradient(circle at top, rgba(251, 146, 60, 0.4), rgba(30, 41, 59, 0.98));
   color: #fffbeb;
 }
 
@@ -297,14 +299,14 @@
 }
 
 .badge--success {
-  border-color: rgba(34, 197, 94, 0.9);
-  background: radial-gradient(circle at top, rgba(34, 197, 94, 0.4), rgba(15, 23, 42, 0.98));
+  border-color: rgba(74, 222, 128, 0.8);
+  background: radial-gradient(circle at top, rgba(74, 222, 128, 0.3), rgba(30, 41, 59, 0.98));
   color: #bbf7d0;
 }
 
 .badge--danger {
-  border-color: rgba(239, 68, 68, 0.9);
-  background: radial-gradient(circle at top, rgba(239, 68, 68, 0.5), rgba(15, 23, 42, 0.98));
+  border-color: rgba(248, 113, 113, 0.8);
+  background: radial-gradient(circle at top, rgba(248, 113, 113, 0.35), rgba(30, 41, 59, 0.98));
   color: #fee2e2;
 }
 
@@ -327,9 +329,9 @@
   flex-direction: row;
   gap: 1.5rem;
   align-items: flex-start;
-  background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.98), rgba(15, 23, 42, 1));
+  background: radial-gradient(circle at top left, rgba(30, 41, 59, 0.98), rgba(30, 41, 59, 1));
   border-radius: var(--radius-lg);
-  border: 1px solid rgba(30, 64, 175, 0.9);
+  border: 1px solid rgba(71, 85, 105, 0.6);
   box-shadow: var(--shadow-soft);
   padding: 1.75rem 2rem;
   margin-bottom: 1.75rem;
@@ -359,9 +361,9 @@
 }
 
 .citizens-status-card {
-  background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.98), rgba(15, 23, 42, 1));
+  background: radial-gradient(circle at top left, rgba(30, 41, 59, 0.98), rgba(30, 41, 59, 1));
   border-radius: var(--radius-lg);
-  border: 1px solid rgba(30, 64, 175, 0.9);
+  border: 1px solid rgba(71, 85, 105, 0.6);
   box-shadow: var(--shadow-soft);
 }
 
@@ -412,9 +414,9 @@
 }
 
 .citizens-list-card {
-  background: radial-gradient(circle at top, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 1));
+  background: radial-gradient(circle at top, rgba(30, 41, 59, 0.96), rgba(30, 41, 59, 1));
   border-radius: var(--radius-lg);
-  border: 1px solid rgba(30, 64, 175, 0.9);
+  border: 1px solid rgba(71, 85, 105, 0.6);
 }
 
 /* Responsive Design */
@@ -437,7 +439,7 @@
   }
 
   .stat-value {
-    font-size: 2rem;
+    font-size: 1.5rem;
   }
 
   .list-item {

@@ -7,6 +7,7 @@ import {
   NATION_TOKEN_ABI,
 } from "../config";
 import { CopyableAddress } from "../components/CopyableAddress";
+import { FormattedNumber } from "../components/FormattedNumber";
 import "./Pages.css";
 
 interface Citizen {
@@ -313,11 +314,15 @@ export function Citizens() {
         <section className="card stats-card">
           <div className="stat-item">
             <div className="stat-label">Total Citizens</div>
-            <div className="stat-value">{citizens.length}</div>
+            <div className="stat-value">
+              <FormattedNumber value={citizens.length} />
+            </div>
           </div>
           <div className="stat-item">
             <div className="stat-label">Total Currency Supply</div>
-            <div className="stat-value">{totalSupply} NAT</div>
+            <div className="stat-value">
+              <FormattedNumber value={totalSupply} suffix="NAT" />
+            </div>
           </div>
         </section>
       </section>
@@ -340,7 +345,7 @@ export function Citizens() {
                 </div>
                 <div className="list-item-info">
                   <span className="token-balance">
-                    {citizen.tokenBalance} NAT
+                    <FormattedNumber value={citizen.tokenBalance} suffix="NAT" />
                   </span>
                 </div>
               </div>

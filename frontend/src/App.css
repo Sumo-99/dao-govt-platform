@@ -1,24 +1,24 @@
 :root {
   /* Brand & civic accent */
-  --primary-color: #f97316; /* civic orange */
-  --primary-hover: #ea580c;
-  --accent-color: #38bdf8; /* electric civic blue */
+  --primary-color: #fb923c; /* brighter civic orange */
+  --primary-hover: #f97316;
+  --accent-color: #60a5fa; /* brighter electric civic blue */
 
   /* Semantic */
-  --success-color: #22c55e;
-  --error-color: #ef4444;
-  --warning-color: #facc15;
+  --success-color: #4ade80;
+  --error-color: #f87171;
+  --warning-color: #fde047;
 
-  /* Dark mode surfaces */
-  --bg-color: #020617; /* page background (slate-950) */
-  --card-bg: #020617; /* cards / panels */
-  --card-elevated-bg: #020617;
-  --border-color: #1f2937;
+  /* Dark mode surfaces - brighter for better readability */
+  --bg-color: #0f172a; /* page background (slate-900) - lighter */
+  --card-bg: #1e293b; /* cards / panels (slate-800) - much lighter */
+  --card-elevated-bg: #334155; /* elevated cards (slate-700) */
+  --border-color: #475569; /* slate-600 - much more visible */
 
-  /* Typography */
-  --text-primary: #e5e7eb;
-  --text-secondary: #9ca3af;
-  --text-muted: #6b7280;
+  /* Typography - brighter for better contrast */
+  --text-primary: #f1f5f9; /* nearly white */
+  --text-secondary: #cbd5e1; /* brighter gray */
+  --text-muted: #94a3b8; /* more visible muted text */
 
   /* Misc design tokens */
   --radius-sm: 0.375rem;
@@ -58,10 +58,10 @@ body {
 .app {
   min-height: 100vh;
   background:
-    radial-gradient(circle at top left, rgba(248, 250, 252, 0.08), transparent 55%),
-    radial-gradient(circle at top right, rgba(249, 115, 22, 0.14), transparent 60%),
-    radial-gradient(circle at bottom, rgba(56, 189, 248, 0.12), transparent 55%),
-    linear-gradient(to bottom, #020617, #020617);
+    radial-gradient(circle at top left, rgba(248, 250, 252, 0.06), transparent 55%),
+    radial-gradient(circle at top right, rgba(251, 146, 60, 0.12), transparent 60%),
+    radial-gradient(circle at bottom, rgba(96, 165, 250, 0.10), transparent 55%),
+    linear-gradient(to bottom, #0f172a, #0f172a);
 }
 
 .app-main {
@@ -88,9 +88,9 @@ body {
 }
 
 .home-hero-card {
-  background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.92), rgba(15, 23, 42, 0.98));
+  background: radial-gradient(circle at top left, rgba(30, 41, 59, 0.95), rgba(30, 41, 59, 1));
   border-radius: var(--radius-lg);
-  border: 1px solid rgba(15, 23, 42, 0.9);
+  border: 1px solid rgba(71, 85, 105, 0.6);
   box-shadow: var(--shadow-soft);
   padding: 24px 26px 26px;
   margin-bottom: 28px;
@@ -103,9 +103,9 @@ body {
   position: absolute;
   inset: -40%;
   background:
-    radial-gradient(circle at 10% 0%, rgba(249, 115, 22, 0.28), transparent 60%),
-    radial-gradient(circle at 90% 20%, rgba(56, 189, 248, 0.32), transparent 60%);
-  opacity: 0.18;
+    radial-gradient(circle at 10% 0%, rgba(251, 146, 60, 0.25), transparent 60%),
+    radial-gradient(circle at 90% 20%, rgba(96, 165, 250, 0.25), transparent 60%);
+  opacity: 0.25;
   pointer-events: none;
 }
 
@@ -127,7 +127,7 @@ body {
   font-weight: 700;
   margin-bottom: 6px;
   letter-spacing: -0.02em;
-  color: #e5e7eb;
+  color: #f8fafc;
 }
 
 .home-subtitle {
@@ -140,7 +140,7 @@ body {
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.18em;
-  color: rgba(248, 250, 252, 0.7);
+  color: rgba(203, 213, 225, 0.9);
   margin-bottom: 6px;
 }
 
@@ -162,9 +162,9 @@ body {
   font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  border: 1px solid rgba(30, 64, 175, 0.9);
-  background: radial-gradient(circle at top, rgba(15, 23, 42, 1), rgba(15, 23, 42, 0.95));
-  color: rgba(148, 163, 184, 0.95);
+  border: 1px solid rgba(71, 85, 105, 0.8);
+  background: radial-gradient(circle at top, rgba(51, 65, 85, 1), rgba(30, 41, 59, 0.95));
+  color: rgba(203, 213, 225, 1);
 }
 
 .pill-dot {
@@ -176,14 +176,14 @@ body {
 }
 
 .pill--accent {
-  border-color: rgba(56, 189, 248, 0.9);
-  background: radial-gradient(circle at top, rgba(56, 189, 248, 0.35), rgba(15, 23, 42, 0.98));
+  border-color: rgba(96, 165, 250, 0.8);
+  background: radial-gradient(circle at top, rgba(96, 165, 250, 0.3), rgba(30, 41, 59, 0.98));
   color: #e0f2fe;
 }
 
 .pill--success {
-  border-color: rgba(34, 197, 94, 0.9);
-  background: radial-gradient(circle at top, rgba(34, 197, 94, 0.4), rgba(15, 23, 42, 0.98));
+  border-color: rgba(74, 222, 128, 0.8);
+  background: radial-gradient(circle at top, rgba(74, 222, 128, 0.3), rgba(30, 41, 59, 0.98));
   color: #bbf7d0;
 }
 
@@ -235,9 +235,9 @@ body {
   gap: 0.5rem;
   padding: 0.4rem 0.75rem;
   border-radius: 999px;
-  border: 1px solid rgba(148, 163, 184, 0.45);
-  background: radial-gradient(circle at top, rgba(15, 23, 42, 0.98), rgba(15, 23, 42, 0.98));
-  color: rgba(209, 213, 219, 0.95);
+  border: 1px solid rgba(71, 85, 105, 0.6);
+  background: radial-gradient(circle at top, rgba(51, 65, 85, 0.98), rgba(30, 41, 59, 0.98));
+  color: rgba(241, 245, 249, 1);
   font-size: 0.78rem;
 }
 
@@ -248,11 +248,11 @@ body {
   width: 1.3rem;
   height: 1.3rem;
   border-radius: 999px;
-  background: rgba(15, 23, 42, 1);
-  color: #f97316;
+  background: rgba(30, 41, 59, 1);
+  color: #fb923c;
   font-size: 0.7rem;
   font-weight: 600;
-  box-shadow: 0 0 0 1px rgba(249, 115, 22, 0.7);
+  box-shadow: 0 0 0 1px rgba(251, 146, 60, 0.7);
 }
 
 .home-hero-highlight-text {
@@ -270,9 +270,9 @@ body {
 }
 
 .home-wallet-card {
-  background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.98), rgba(15, 23, 42, 1));
+  background: radial-gradient(circle at top left, rgba(30, 41, 59, 0.98), rgba(30, 41, 59, 1));
   border-radius: var(--radius-md);
-  border: 1px solid rgba(30, 64, 175, 0.8);
+  border: 1px solid rgba(71, 85, 105, 0.6);
   padding: 14px 16px 16px;
   box-shadow: var(--shadow-subtle);
 }
@@ -307,14 +307,14 @@ body {
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  color: rgba(148, 163, 184, 0.9);
+  color: rgba(203, 213, 225, 1);
   margin-bottom: 4px;
 }
 
 .home-steps-card {
-  background: radial-gradient(circle at top right, rgba(15, 23, 42, 0.98), rgba(15, 23, 42, 1));
+  background: radial-gradient(circle at top right, rgba(30, 41, 59, 0.98), rgba(30, 41, 59, 1));
   border-radius: var(--radius-md);
-  border: 1px solid rgba(30, 64, 175, 0.8);
+  border: 1px solid rgba(71, 85, 105, 0.6);
   padding: 14px 16px 16px;
   box-shadow: var(--shadow-subtle);
 }
@@ -350,9 +350,9 @@ body {
   height: 1.3rem;
   border-radius: 999px;
   font-size: 0.72rem;
-  font-weight: 600;
-  color: #fffbeb;
-  background: linear-gradient(135deg, #f97316, #facc15);
+  font-weight: 700;
+  color: #0f172a;
+  background: linear-gradient(135deg, #fb923c, #fde047);
 }
 
 .home-step-title {
@@ -391,25 +391,25 @@ body {
 }
 
 .home-link-cta {
-  background: linear-gradient(135deg, #f97316, #ea580c);
+  background: linear-gradient(135deg, #fb923c, #f97316);
   color: #fffbeb;
-  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.7);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
 }
 
 .home-link-cta:hover {
   transform: translateY(-1px);
-  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.8);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.4);
 }
 
 .home-link-secondary {
-  border-color: rgba(148, 163, 184, 0.7);
-  color: rgba(209, 213, 219, 0.95);
-  background: radial-gradient(circle at top, rgba(15, 23, 42, 1), rgba(15, 23, 42, 0.95));
+  border-color: rgba(71, 85, 105, 0.7);
+  color: rgba(241, 245, 249, 1);
+  background: radial-gradient(circle at top, rgba(51, 65, 85, 1), rgba(30, 41, 59, 0.95));
 }
 
 .home-link-secondary:hover {
-  border-color: rgba(248, 250, 252, 0.8);
-  color: #e5e7eb;
+  border-color: rgba(203, 213, 225, 0.9);
+  color: #f8fafc;
 }
 
 .home-grid {
@@ -420,9 +420,9 @@ body {
 }
 
 .home-card {
-  background: radial-gradient(circle at top, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 1));
+  background: radial-gradient(circle at top, rgba(30, 41, 59, 0.96), rgba(30, 41, 59, 1));
   border-radius: var(--radius-md);
-  border: 1px solid rgba(30, 64, 175, 0.8);
+  border: 1px solid rgba(71, 85, 105, 0.6);
 }
 
 .home-admin-actions {
@@ -456,9 +456,9 @@ body {
 }
 
 .home-election-card {
-  background: radial-gradient(circle at top, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 1));
+  background: radial-gradient(circle at top, rgba(30, 41, 59, 0.96), rgba(30, 41, 59, 1));
   border-radius: var(--radius-md);
-  border: 1px solid rgba(30, 64, 175, 0.8);
+  border: 1px solid rgba(71, 85, 105, 0.6);
 }
 
 .home-election-header {
@@ -495,8 +495,8 @@ body {
 }
 
 header {
-  background: radial-gradient(circle at top left, rgba(248, 250, 252, 0.02), transparent 60%),
-    rgba(15, 23, 42, 0.92);
+  background: radial-gradient(circle at top left, rgba(248, 250, 252, 0.04), transparent 60%),
+    rgba(30, 41, 59, 0.96);
   padding: 28px;
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-soft);
@@ -508,7 +508,7 @@ h1 {
   font-size: 32px;
   font-weight: 700;
   margin-bottom: 8px;
-  color: #e5e7eb;
+  color: #f8fafc;
 }
 
 .subtitle {
@@ -531,10 +531,12 @@ h1 {
 
 .address {
   font-family: 'Courier New', monospace;
-  background: var(--bg-color);
+  background: rgba(51, 65, 85, 1);
+  color: #e0f2fe;
   padding: 8px 12px;
   border-radius: 6px;
   font-size: 14px;
+  border: 1px solid rgba(71, 85, 105, 0.5);
 }
 
 .status-badge {
@@ -668,13 +670,14 @@ label:has(input[type="checkbox"]) {
   padding: 12px 16px;
   border: 2px solid var(--border-color);
   border-radius: 8px;
-  background-color: #ffffff;
+  background-color: rgba(51, 65, 85, 0.5);
+  color: var(--text-primary);
   transition: all 0.2s ease;
 }
 
 label:has(input[type="checkbox"]):hover {
   border-color: var(--primary-color);
-  background-color: #f9fafb;
+  background-color: rgba(51, 65, 85, 0.7);
 }
 
 button {
@@ -794,6 +797,7 @@ button.secondary:hover:not(:disabled) {
   font-family: 'Courier New', monospace;
   font-size: 12px;
   color: var(--text-secondary);
+  font-weight: 500;
   margin-top: 4px;
 }
 
