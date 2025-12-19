@@ -529,7 +529,7 @@ export function Home() {
         {/* Step 3: Add Candidates */}
         {isOwner && Object.keys(positions).length > 0 && (
           <section className="card">
-            <h2>Step 3: Add Candidates</h2>
+            <h2>Add Candidates</h2>
             <p>
               Add candidates to election positions. Candidates must be citizen
               addresses.
