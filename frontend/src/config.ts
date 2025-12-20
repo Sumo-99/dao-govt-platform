@@ -3,7 +3,6 @@ export const SOULBOUND_CITIZEN_ID_ADDRESS = "0xe7f1725E7734CE288F8367e1Bb143E90b
 export const NATION_TOKEN_ADDRESS = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
 export const ELECTION_ADDRESS = "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9";
 export const AIRDROPPER_ADDRESS = "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0"; // Update after deployment
-export const PUBLIC_WELFARE_ADDRESS = "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9"; // Update after deployment
 
 // SoulboundCitizenID Contract ABI
 export const SOULBOUND_CITIZEN_ID_ABI = [
@@ -86,25 +85,4 @@ export const AIRDROPPER_ABI = [
   "function tokenDecimals() external view returns (uint8)",
   "function UNIT() external view returns (uint256)",
   "function owner() external view returns (address)"
-];
-
-// PublicWelfare Contract ABI
-export const PUBLIC_WELFARE_ABI = [
-  "function createProposal(string calldata title, string calldata details) external returns (uint256 proposalId)",
-  "function openProposal(uint256 proposalId) external",
-  "function closeProposal(uint256 proposalId) external",
-  "function vote(uint256 proposalId, bool support) external",
-  "function getTally(uint256 proposalId) external view returns (uint256 forVotes, uint256 againstVotes)",
-  "function currentResult(uint256 proposalId) external view returns (string memory title, uint256 forVotes, uint256 againstVotes, bool isActive, bool forLeading)",
-  "function proposals(uint256 proposalId) external view returns (string memory title, string memory details, bool active, bool exists, uint256 forVotes, uint256 againstVotes)",
-  "function hasVoted(uint256 proposalId, address voter) external view returns (bool)",
-  "function nextProposalId() external view returns (uint256)",
-  "function owner() external view returns (address)",
-  "function nationToken() external view returns (address)",
-  "function citizenId() external view returns (address)",
-  "function transferOwnership(address newOwner) external",
-  "event ProposalCreated(uint256 indexed proposalId, string title)",
-  "event ProposalOpened(uint256 indexed proposalId)",
-  "event ProposalClosed(uint256 indexed proposalId)",
-  "event Voted(uint256 indexed proposalId, address indexed voter, bool support)"
 ];

@@ -8,7 +8,7 @@ A comprehensive full-stack blockchain application that implements a complete nat
 
 Country DAO is a decentralized nation governance platform that demonstrates how blockchain technology can be used to create transparent and tamper-proof governance systems. The project consists of:
 
-- **5 Smart Contracts**: Implementing citizenship, token economy, elections, airdrops, and public welfare
+- **4 Smart Contracts**: Implementing citizenship, token economy, elections, and airdrops
   - **SoulboundCitizenID.sol**: Non-transferable NFT-based citizenship system
   - **NationToken.sol**: ERC20 governance token (NAT) with voting delegation
   - **Election.sol**: Flexible position-based election system
@@ -73,7 +73,7 @@ This will:
 - Deploy them to your local Hardhat network in the correct order
 - Display the deployed contract addresses
 
-**Important**: Copy all five deployed contract addresses from the output:
+**Important**: Copy all four deployed contract addresses from the output:
 
 - SoulboundCitizenID address
 - NationToken address
@@ -165,13 +165,6 @@ The frontend will be available at `http://localhost:3000`
 6. Your vote is recorded and the token is burned
 
 #### Participating in Public Welfare Proposals
-
-1. Navigate to the **PublicWelfareBoard** page
-2. View active welfare proposals
-3. Read the proposal details
-4. Vote "For" or "Against" (costs 1 NAT token)
-5. Confirm the transaction in MetaMask
-6. View real-time vote tallies
 
 ### As the Contract Owner (Admin)
 
