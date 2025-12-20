@@ -37,6 +37,7 @@
 
 .stat-item {
   text-align: center;
+  min-width: 200px;
 }
 
 .stat-label {
@@ -53,7 +54,8 @@
   font-weight: 700;
   line-height: 1.2;
   word-break: break-word;
-  overflow-wrap: break-word;
+  overflow-wrap: anywhere;
+  max-width: 100%;
 }
 
 /* List Container */
@@ -312,16 +314,10 @@
 
 /* Citizens page specific */
 .citizens-layout {
-  display: grid;
-  grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.3fr);
+  display: flex;
+  flex-direction: column;
   gap: 1.5rem;
   margin-bottom: 1.75rem;
-}
-
-@media (max-width: 960px) {
-  .citizens-layout {
-    grid-template-columns: minmax(0, 1fr);
-  }
 }
 
 .citizens-hero-card {
